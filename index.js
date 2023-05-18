@@ -30,14 +30,27 @@ async function run() {
 
         const toysCollection = client.db('toysDB').collection('toys') ;
 
+
+
+        app.get('/toys', async(req, res)=>{
+           const result = await toysCollection.find().limit(20).toArray()
+           res.send(result)
+        })
+
+        app.get('/toys/:text', async(req, res)=>{
+            const text = req.params.text;
+            const result = await toysCollection.find({$or: [ { name: { $regex: text, $options: "i" } }]}).toArray()
+            res.send(result)
+        })
+
+
+
         app.post('/toys', async(req, res)=> {
             const toy = req.body ;
             const result = await toysCollection.insertOne(toy)
             res.send(result)
             console.log(req.body)
         })
-
-
 
 
         // Send a ping to confirm a successful connection
