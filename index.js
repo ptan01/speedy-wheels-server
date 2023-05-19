@@ -49,7 +49,11 @@ async function run() {
             res.send(result)
         })
 
-        
+        app.get('/category/electric', async(req, res)=> {
+            const query = {category : 'Electric Vehicles'}
+            const result = await toysCollection.find(query).toArray()
+            res.send(result)
+        })
 
 
 
