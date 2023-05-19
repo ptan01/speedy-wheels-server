@@ -77,6 +77,22 @@ async function run() {
             res.send(result)
         })
 
+        app.patch('/toys/update/:id', async(req, res)=>{
+            const id = req.params.id ;
+            const filter = {_id : new ObjectId(id)}
+            const toy = req.body ;
+            const updateToy = {
+                      $set:{
+                        price : toy.price,
+                        quantity: toy.quantity,
+                        description: toy.description
+                      }
+                    }
+            const result = await toysCollection.updateOne(filter, updateToy)
+            res.send(result)
+
+        })
+
         app.post('/toys', async(req, res)=> {
             const toy = req.body ;
             const result = await toysCollection.insertOne(toy)
