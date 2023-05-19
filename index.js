@@ -43,6 +43,14 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/category/off-road', async (req, res)=> {
+            const query = { category: 'Off-Road Vehicles' }
+            const result = await toysCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        
+
 
 
         app.post('/toys', async(req, res)=> {
