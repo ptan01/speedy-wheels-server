@@ -26,7 +26,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
 
         const toysCollection = client.db('toysDB').collection('toys') ;
 
@@ -62,19 +62,19 @@ async function run() {
 
         app.get('/category/off-road', async (req, res)=> {
             const query = { category: 'Off-Road Vehicles' }
-            const result = await toysCollection.find(query).toArray()
+            const result = await toysCollection.find(query).limit(6).toArray()
             res.send(result)
         })
 
         app.get('/category/electric', async(req, res)=> {
             const query = {category : 'Electric Vehicles'}
-            const result = await toysCollection.find(query).toArray()
+            const result = await toysCollection.find(query).limit(6).toArray()
             res.send(result)
         })
 
         app.get('/category/sports', async(req, res)=> {
             const query = {category: 'Sports Cars'}
-            const result = await toysCollection.find(query).toArray()
+            const result = await toysCollection.find(query).limit(6).toArray()
             res.send(result)
         })
 
